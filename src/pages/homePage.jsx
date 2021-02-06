@@ -12,6 +12,14 @@ function HomePage(){
         })
     }
 
+    function deleteUser(id){
+        setUserList(prevValue => {
+        return prevValue.filter((user)=>{
+        return user.id !== id;
+      });
+    });
+    }
+
     return (
         <div>
             <CreateUser
@@ -19,8 +27,8 @@ function HomePage(){
             />
             {userList.map((user,index)=>
             (<DisplayUserList key={user.id}
-                id={user.id}
                 item={user}
+                delete = {deleteUser}
             />))}
         </div>
     )
