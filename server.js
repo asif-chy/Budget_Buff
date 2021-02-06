@@ -59,13 +59,12 @@ app.post("/save",function(request,response){
 
 app.delete("/delete",function(request,response){
   console.log("Delete Item");
-  console.log(request.body.note);
+  console.log(request.body.item);
 
-  const id = request.body.note.id;
+  const id = request.body.item.id;
   console.log(id);
 
-
-  Note.findByIdAndRemove({_id:id},function(err){
+  User.findByIdAndRemove({_id:id},function(err){
     if(err){
       console.log(err);
     }else{

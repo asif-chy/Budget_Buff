@@ -64,16 +64,8 @@ function CreateItem(props){
                 };
             })
         }
-        // }else{
-        //     setItem(previouseValue => {
-        //         return{
-        //             ...previouseValue,
-        //             itemId: item.itemId+1
-        //         };
-        //     })
-        // }
     
-        console.log(item);
+        //console.log(item);
         props.onAdd(item);
       }
 

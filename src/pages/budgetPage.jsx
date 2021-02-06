@@ -5,18 +5,46 @@ import { Link } from "react-router-dom";
 
 function BudgetPage(props){
 
-    const [itemList, setItemList] = React.useState([]);
+    const [itemList, setItemList] = React.useState({
+        listId: "",
+        list:[]});
 
     function updateItemList(item){
         setItemList(previousValue =>{
-            return[...previousValue,item];
+            return{
+                list: [...previousValue.list, item]
+            };
         })
     }
 
-    console.log(props);
+    // function updateItemList(item){
+    //     setItemList(previousValue =>{
+    //         return[...previousValue,item];
+    //     })
+    // }
 
     // const userName = props.location.userData[0];
     // const id = props.location.userData[1];
+
+    function deleteItem(id){
+        setItemList(prevValue => {
+            return {
+                list: prevValue.list.filter((item)=>{
+                    return item.itemId!==id;
+                })
+            };
+      });
+    }
+
+    console.log(itemList);
+
+    // function deleteItem(id){
+    //     setItemList(prevValue => {
+    //     return prevValue.filter((item)=>{
+    //     return item.itemId !== id;
+    //   });
+    // });
+    // }
 
     return(
         <div>
@@ -25,9 +53,10 @@ function BudgetPage(props){
             <CreateItem
                 onAdd = {updateItemList}
             />
-            {itemList.map((item, index)=>
+            {itemList.list.map((item, index)=>
             (<DisplayItemList key = {index}
                 item = {item}
+                deleteItem = {deleteItem}
                 />))}
         </div>
     )
