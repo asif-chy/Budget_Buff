@@ -170,19 +170,21 @@ app.post("/save", function (request, response) {
 
 });
 
-app.delete("/delete", function (request, response) {
+app.delete("/delete", function (request,response) {
   console.log("Delete Item");
   console.log(request.body.item);
 
   const id = request.body.item._id;
   console.log(id);
 
-  User.findByIdAndRemove({ _id: id }, function (err) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("Delete Successful");
+  User.findByIdAndRemove({ _id: id }, function (err, res) {
+    if(err){
+      res = { error: true, message: "Error Deleting User"};
+    }else{
+      res = { error: false, message: "User Deleted"};
     }
+    console.log(res);
+    response.json(res);
   })
 });
 
