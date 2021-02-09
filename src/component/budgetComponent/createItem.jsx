@@ -7,7 +7,6 @@ function CreateItem(props){
         itemId: 0,
         itemName:"",
         amount:"",
-        currentDate:""
     });
 
     function addItem(event){
@@ -37,22 +36,9 @@ function CreateItem(props){
     
     //   })
 
-    async function handleSubmit(event){
+    function handleItemCreate(event){
         event.preventDefault();
-        console.log("Before Save Call");
-        //const res = await axios.post('http://localhost:9000/save', {user});
-    
-        // console.log(res);
-        // console.log(res.data.id);
-    
-        // const itemId = res.data.id;
-    
-        // await setUser(previousValue =>{
-        //   return{
-        //     ...previousValue,
-        //     id:itemId,
-        //   };
-        // })
+        console.log("Before Item Create");
 
         console.log(item.itemId);
 
@@ -70,11 +56,11 @@ function CreateItem(props){
       }
 
     return(
-        <form onSubmit={handleSubmit} >
+        <div>
             <input  type="text" name="itemName" placeholder="Add Item" onChange={addItem}></input>
             <input  type="text" name="amount" placeholder="Add Amount" onChange={addItem}></input>
-            <button type="submit">Add Item</button>
-        </form>
+            <button type="button" onClick={handleItemCreate}>Add Item</button>
+        </div>
     )
 
     // return(

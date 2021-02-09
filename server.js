@@ -6,22 +6,30 @@ const cors = require("cors");
 const _ = require('lodash');
 const PORT = process.env.PORT || 9000;
 
-mongoose.connect("mongodb+srv://Asiful_01:Mongo1234@cluster0.9hlzt.mongodb.net/userDB?retryWrites=true&w=majority", {useNewUrlParser: true});
+mongoose.connect("mongodb+srv://Asiful_01:Mongo1234@cluster0.9hlzt.mongodb.net/budgetDB?retryWrites=true&w=majority", { useNewUrlParser: true });
 
 const app = express();
 
 app.set('view engine');
 
 app.use(cors());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(express.json());
 
 const userSchema = {
-  name: String
+  userName: String,
 }
 
-const User = mongoose.model("User",userSchema);
+const itemListSchema = {
+  userId: String,
+  listDate: String,
+  isSaved: Boolean,
+  list: Array
+}
+
+const User = mongoose.model("User", userSchema);
+const ItemList = mongoose.model("ItemList", itemListSchema);
 
 // app.get('/api/greeting', (req, res) => {
 //   const name = req.query.name || 'World';
@@ -29,8 +37,114 @@ const User = mongoose.model("User",userSchema);
 //   res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
 // });
 
+app.get("/getItemListData", function (request, response) {
 
-app.post("/save",function(request,response){
+  console.log("Get Item List");
+  console.log(request.query);
+
+  res = { error: true, message: "Error adding data" };
+
+  response.json(res);
+
+  // const itemList = ({
+  //   mes: "Made It"
+  // })
+  // response.json(itemList);
+  // Item.find(function(err, listItems){
+
+  //     if(listItems.length === 0){
+  //       Item.insertMany(defaultItems,function(err){
+  //         if(err){
+  //           console.log(err);
+  //         }else{
+  //           console.log("Insert Successful");
+  //           response.redirect("/");
+  //         }
+  //       });
+  //     }else{
+  //       response.render("list",{listTitle:"Today", itemList:listItems});
+  //     }
+  // })
+  //day = date.getDate();
+  //response.render("list",{listTitle:"Today", itemList:listItems});
+});
+
+app.post("/saveItemListData", function (request, response) {
+  console.log("Save Budget Data");
+  console.log(request.body);
+  var res = {};
+
+  const userId = request.body.itemList.userId;
+  const listDate = request.body.itemList.listDate;
+  const isSaved = true;
+  const list = request.body.itemList.list;
+
+  const newList = new ItemList({
+    userId: userId,
+    listDate: listDate,
+    isSaved: isSaved,
+    list: list
+  })
+
+  newList.save(function (err, result) {
+    if (err) {
+      res = { error: true, message: "Error adding data" };
+    } else {
+      res = { error: false, message: "Data added", id: result._id };
+    }
+    console.log(res);
+    //response.json(res);
+  });
+  //response.redirect("http://localhost:3000/");
+});
+
+app.put("/updateItemListData", function (request, response) {
+  console.log("Update Budget Data");
+  console.log(request.body);
+  var res = {};
+
+  const id = request.body.itemList.userId;
+  const date = request.body.itemList.listDate;
+  //const isSaved = true;
+  const list = request.body.itemList.list;
+
+  //isSaved: isSaved,
+
+  const newList = new ItemList({
+    userId: id,
+    listDate: date,
+    list: list
+  })
+
+  ItemList.findOneAndUpdate({userId: id,listDate:date},{ list: list},function (err, result) {
+    if (err) {
+      res = { error: true, message: "Error updating data" };
+    } else {
+      res = { error: false, message: "Data updated"};
+    }
+    console.log(res);
+    //response.json(res);
+  });
+  //response.redirect("http://localhost:3000/");
+});
+
+
+app.get("/getUserListData", function (request, response) {
+
+  console.log("Get User List");
+  //console.log(request.query);
+  User.find(function(err, result){
+    if(err){
+      res = { error: true, message: "Error Fetching User List"};
+    }else{
+      res = { error: false, message: "Data Fetched User List", userList: result};
+    }
+    console.log(res);
+    response.json(res);
+  });
+});
+
+app.post("/save", function (request, response) {
   console.log("Save Data");
   console.log(request.body.user);
   var res = {};
@@ -40,34 +154,33 @@ app.post("/save",function(request,response){
   console.log(userName);
 
   const newUser = new User({
-    //id:nameId,
-    name: userName
-  })
+    userName: userName
+  }, { versionKey: false });
 
-  newUser.save(function(err, result){
-  if(err) {
-    res = { error: true, message: "Error adding data" };
-  } else {
-    res = { error: false, message: "Data added", id: result._id };
-  }
-  console.log(res);
-  response.json(res);
-});
+  newUser.save(function (err, result) {
+    if (err) {
+      res = { error: true, message: "Error adding data" };
+    } else {
+      res = { error: false, message: "Data added", id: result._id };
+    }
+    console.log(res);
+    response.json(res);
+  });
   //response.redirect("http://localhost:3000/");
 
 });
 
-app.delete("/delete",function(request,response){
+app.delete("/delete", function (request, response) {
   console.log("Delete Item");
   console.log(request.body.item);
 
-  const id = request.body.item.id;
+  const id = request.body.item._id;
   console.log(id);
 
-  User.findByIdAndRemove({_id:id},function(err){
-    if(err){
+  User.findByIdAndRemove({ _id: id }, function (err) {
+    if (err) {
       console.log(err);
-    }else{
+    } else {
       console.log("Delete Successful");
     }
   })
@@ -99,10 +212,10 @@ app.delete("/delete",function(request,response){
 //   }
 // })
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
   res.json('you did it');
 });
 
-app.listen(PORT,function(){
+app.listen(PORT, function () {
   console.log("Server listening to port 9000");
 })

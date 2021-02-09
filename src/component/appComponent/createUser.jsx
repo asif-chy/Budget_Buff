@@ -4,8 +4,9 @@ import axios from 'axios';
 function CreateUser(props){
 
     const[user, setUser] = React.useState({
-        id: "",
-        userName:""
+        _id: "",
+        userName:"",
+        _v:""
     });
 
     function addUser(event){
@@ -22,18 +23,11 @@ function CreateUser(props){
     useEffect(()=>{
         console.log(user);
     
-        if(user.id){
+        if(user._id){
           props.onAdd(user);
-    
-          setUser(previousValue =>{
-            return{
-              ...previousValue,
-              id:"",
-            };
-          })
         }
     
-      })
+      },[user._id]);
 
     async function handleSubmit(event){
         event.preventDefault();
@@ -48,7 +42,7 @@ function CreateUser(props){
         await setUser(previousValue =>{
           return{
             ...previousValue,
-            id:itemId,
+            _id:itemId,
           };
         })
     
