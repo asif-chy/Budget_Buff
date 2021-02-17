@@ -6,7 +6,7 @@ function CreateItem(props){
     const[item, setItem] = React.useState({
         itemId: 0,
         itemName:"",
-        amount:"",
+        amount: ""
     });
 
     function addItem(event){
@@ -20,28 +20,11 @@ function CreateItem(props){
         })
     }
 
-    // useEffect(()=>{
-    //     console.log(user);
-    
-    //     if(user.id){
-    //       props.onAdd(user);
-    
-    //       setUser(previousValue =>{
-    //         return{
-    //           ...previousValue,
-    //           id:"",
-    //         };
-    //       })
-    //     }
-    
-    //   })
-
     function handleItemCreate(event){
         event.preventDefault();
         console.log("Before Item Create");
 
-        console.log(item.itemId);
-
+        //console.log(item.itemId);
         if(item.itemId >= 0){
             setItem(previouseValue => {
                 return{
@@ -62,14 +45,6 @@ function CreateItem(props){
             <button type="button" onClick={handleItemCreate}>Add Item</button>
         </div>
     )
-
-    // return(
-    //     <form onSubmit={handleSubmit}>
-    //         <input onChange={addUser} type="text" name="userName" placeholder="Add User"></input>
-    //         <input onChange={addUser} type="text" name="userName" placeholder="Add User"></input>
-    //         <button type="submit">Add</button>
-    //     </form>
-    // )
 }
 
 export default CreateItem;

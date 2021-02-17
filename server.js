@@ -42,31 +42,18 @@ app.get("/getItemListData", function (request, response) {
   console.log("Get Item List");
   console.log(request.query);
 
-  res = { error: true, message: "Error adding data" };
+  const id = request.query.userId;
+  const date = request.query.listDate;
 
-  response.json(res);
-
-  // const itemList = ({
-  //   mes: "Made It"
-  // })
-  // response.json(itemList);
-  // Item.find(function(err, listItems){
-
-  //     if(listItems.length === 0){
-  //       Item.insertMany(defaultItems,function(err){
-  //         if(err){
-  //           console.log(err);
-  //         }else{
-  //           console.log("Insert Successful");
-  //           response.redirect("/");
-  //         }
-  //       });
-  //     }else{
-  //       response.render("list",{listTitle:"Today", itemList:listItems});
-  //     }
-  // })
-  //day = date.getDate();
-  //response.render("list",{listTitle:"Today", itemList:listItems});
+  ItemList.findOne({ userId: id, listDate:date},'list isSaved',function(err, result){
+    if(err){
+      res = { error: true, message: "Error Fetching Item List"};
+    }else{
+      res = { error: false, message: "Data Fetched Item List", itemList: result};
+    }
+    console.log(res);
+    response.json(res);
+  });
 });
 
 app.post("/saveItemListData", function (request, response) {
