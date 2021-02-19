@@ -11,6 +11,7 @@ function BudgetPage(props) {
         userId: "",
         listDate: "",
         isSaved: "",
+        listTotal: "",
         list: []
     });
 
@@ -34,6 +35,8 @@ function BudgetPage(props) {
                 var day = date.getDate();
                 const currentDate = year + '-' + month + '-' + day;
 
+                console.log(currentDate);
+
                 setItemList(previousValue => {
                     return {
                         ...previousValue,
@@ -48,9 +51,7 @@ function BudgetPage(props) {
                     }
                 });
 
-                console.log(res + "Server Call");
-
-                if (!res.data.error || res.data.itemList.length !== 0) {
+                if (null !== res.data.itemList && !res.data.error) {
 
                     const fetchedItemList = res.data.itemList;
                     var saved = fetchedItemList.isSaved;
@@ -68,7 +69,7 @@ function BudgetPage(props) {
                             }
                         })
                     }
-                console.log(itemList)
+                    console.log(itemList)
                 }
             } catch (e) {
                 console.log(e);
@@ -76,6 +77,23 @@ function BudgetPage(props) {
         };
         fetchItemList();
     }, []);
+
+    React.useEffect(() => {
+
+        const updateListTotal = () => {
+            const initListTotal = findTotal(itemList);
+
+            setItemList(previousValue => {
+                return {
+                    ...previousValue,
+                    listTotal: initListTotal
+                }
+            })
+        }
+
+        updateListTotal();
+
+    }, [itemList.list]);
 
 
     function updateItemList(item) {
@@ -120,15 +138,15 @@ function BudgetPage(props) {
         }
     }
 
-    function findTotal(itemList){
+    function findTotal(itemList) {
         var listTotal = 0;
-        itemList.list.forEach((item)=>{
+        itemList.list.forEach((item) => {
             listTotal = parseInt(listTotal) + parseInt(item.amount);
             console.log(listTotal);
         })
 
         return listTotal;
-        
+
     }
 
     // calculateTotal = (numbers) => {
@@ -156,8 +174,9 @@ function BudgetPage(props) {
                 />))}
                 <button type="submit">Save</button>
             </form>
-            <h3>{findTotal(itemList)}</h3>
-            <DisplayCalendar/>
+            {/* <h3>{findTotal(itemList)}</h3> */}
+            <h3>{itemList.listTotal}</h3>
+            <DisplayCalendar />
         </div>
     )
 }

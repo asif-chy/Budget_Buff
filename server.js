@@ -25,6 +25,7 @@ const itemListSchema = {
   userId: String,
   listDate: String,
   isSaved: Boolean,
+  listTotal: String,
   list: Array
 }
 
@@ -36,6 +37,26 @@ const ItemList = mongoose.model("ItemList", itemListSchema);
 //   res.setHeader('Content-Type', 'application/json');
 //   res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
 // });
+
+app.get("/getTotalList", function (request, response) {
+
+  console.log("Get Total List");
+
+  console.log(request.query);
+
+  const id = request.query.userId;
+  const dateList = request.query.dateList;
+
+  ItemList.find({ userId: id, listDate:dateList}, function(err,result){
+    if(err){
+      res = { error: true, message: "Error Fetching Total List"}
+    }else{
+      res = { error: false, message: "Data Fetched Total List", totalList: result}
+    }
+    console.log(res);
+    response.json("Total Response");
+  });
+});
 
 app.get("/getItemListData", function (request, response) {
 
@@ -64,12 +85,14 @@ app.post("/saveItemListData", function (request, response) {
   const userId = request.body.itemList.userId;
   const listDate = request.body.itemList.listDate;
   const isSaved = true;
+  const listTotal = request.body.itemList.listTotal
   const list = request.body.itemList.list;
 
   const newList = new ItemList({
     userId: userId,
     listDate: listDate,
     isSaved: isSaved,
+    listTotal: listTotal,
     list: list
   })
 
@@ -92,18 +115,16 @@ app.put("/updateItemListData", function (request, response) {
 
   const id = request.body.itemList.userId;
   const date = request.body.itemList.listDate;
-  //const isSaved = true;
+  const listTotal = request.body.itemList.listTotal
   const list = request.body.itemList.list;
 
-  //isSaved: isSaved,
+  // const newList = new ItemList({
+  //   userId: id,
+  //   listDate: date,
+  //   list: list
+  // })
 
-  const newList = new ItemList({
-    userId: id,
-    listDate: date,
-    list: list
-  })
-
-  ItemList.findOneAndUpdate({userId: id,listDate:date},{ list: list},function (err, result) {
+  ItemList.findOneAndUpdate({userId: id,listDate:date},{ list: list, listTotal: listTotal},function (err, result) {
     if (err) {
       res = { error: true, message: "Error updating data" };
     } else {

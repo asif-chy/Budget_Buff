@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 //const { datesGenerator } = require('dates-generator');
 import { datesGenerator } from 'dates-generator';
@@ -23,7 +24,12 @@ const MonthText = styled.div`
 
 function DisplayCalendar() {
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const [dates, setDates] = useState([]);
+    
+    const [dateData, setDateData] = useState({
+        calendarDateList: [],
+        calendarTotalLisst: []
+    });
+
     const [calendar, setCalendar] = useState({
         month: selectedDate.getMonth(),
         year: selectedDate.getFullYear()
@@ -44,17 +50,31 @@ function DisplayCalendar() {
         const { dates, nextMonth, nextYear, previousMonth, previousYear } = datesGenerator(body);
 
         console.log(dates);
-        //console.log(dates[1]);
 
-        // dates.map((week,index) => {
-        //     console.log(week);
-        //     dates[index].map((each) => {
-        //         console.log(each.date);
-        //     })
-        // })
+        //Pass dates fetched from dateGenerator inside calendarDateList
+        setDateData({
+                ...dateData,
+                calendarDateList: [...dates]
+        })
 
-        //Pass dates fetched from dateGenerator inside dates
-        setDates([...dates]);
+        console.log(dateData.calendarDateList); 
+
+        const dateList = setDateList(dates);
+        console.log(dateList);
+
+        const fetchTotalList = async () => {
+            try{
+            const res = await axios.get('http://localhost:9000/getTotalList',{
+                params: {
+                    userId: '602dcc4207d54e4b3c41d835',
+                    dateList: dateList
+                }
+            });
+            }catch (e) {
+                console.log(e);
+            }
+        };
+        fetchTotalList();
 
         //Pass functions nextMonth, nextYear, previousMonth, previousYear
         //fetched from dateGenerator inside calendar
@@ -65,7 +85,26 @@ function DisplayCalendar() {
             previousMonth,
             previousYear
         });
-    }, [])
+    }, [calendar.month])
+
+    const setDateList =(dates)=>{
+        var dateList = [];
+
+    //2021-1-17
+    //Object { date: 31, month: 0, year: 2021 }
+
+    //console.log(dates);
+
+        dates.map((week) => {
+            week.map((each) => {
+                var dateString = each.year+'-'+each.month+'-'+each.date;
+                dateList.push(dateString);
+            })
+        })
+        
+        return dateList;
+
+    }
 
     function onClickNext(){
         const body = {
@@ -75,7 +114,11 @@ function DisplayCalendar() {
 
         const {dates, nextMonth, nextYear, previousMonth, previousYear} = datesGenerator(body);
 
-        setDates([...dates]);
+        //console.log(dateData.calendarDateList); 
+        setDateData({
+            ...dateData,
+            calendarDateList: [...dates]
+        })
 
         setCalendar({
             ...calendar,
@@ -96,7 +139,11 @@ function DisplayCalendar() {
 
         const {dates, nextMonth, nextYear, previousMonth, previousYear} = datesGenerator(body);
 
-        setDates([...dates]);
+        //console.log(dateData.calendarDateList); 
+        setDateData({
+            ...dateData,
+            calendarDateList: [...dates]
+        })
 
         setCalendar({
             ...calendar,
@@ -142,7 +189,7 @@ function DisplayCalendar() {
                                     ))}
                                 </tr>
 
-                                {dates.length > 0 && dates.map((week,index) => (
+                                {dateData.calendarDateList.length > 0 && dateData.calendarDateList.map((week,index) => (
                                     <tr key={index}>
                                         {week.map((each,subIndex) => (   
                                             <td key={subIndex} style={{ padding: '5px 0', border: 'solid red' }}> 
