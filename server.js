@@ -54,7 +54,7 @@ app.get("/getTotalList", function (request, response) {
       res = { error: false, message: "Data Fetched Total List", totalList: result}
     }
     console.log(res);
-    response.json("Total Response");
+    response.json(res);
   });
 });
 

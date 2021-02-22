@@ -141,7 +141,7 @@ function BudgetPage(props) {
     function findTotal(itemList) {
         var listTotal = 0;
         itemList.list.forEach((item) => {
-            listTotal = parseInt(listTotal) + parseInt(item.amount);
+            listTotal = parseInt((listTotal) + parseInt(item.amount));
             console.log(listTotal);
         })
 

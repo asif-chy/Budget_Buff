@@ -24,11 +24,8 @@ const MonthText = styled.div`
 
 function DisplayCalendar() {
     const [selectedDate, setSelectedDate] = useState(new Date());
-    
-    const [dateData, setDateData] = useState({
-        calendarDateList: [],
-        calendarTotalLisst: []
-    });
+
+    const [dateData, setDateData] = useState([]);
 
     const [calendar, setCalendar] = useState({
         month: selectedDate.getMonth(),
@@ -48,33 +45,12 @@ function DisplayCalendar() {
 
         //Pass body inside dateGenerator to grab all dates for the month
         const { dates, nextMonth, nextYear, previousMonth, previousYear } = datesGenerator(body);
-
-        console.log(dates);
-
-        //Pass dates fetched from dateGenerator inside calendarDateList
-        setDateData({
-                ...dateData,
-                calendarDateList: [...dates]
-        })
-
-        console.log(dateData.calendarDateList); 
+        //console.log(dates);
 
         const dateList = setDateList(dates);
-        console.log(dateList);
+        //console.log(dateList);
 
-        const fetchTotalList = async () => {
-            try{
-            const res = await axios.get('http://localhost:9000/getTotalList',{
-                params: {
-                    userId: '602dcc4207d54e4b3c41d835',
-                    dateList: dateList
-                }
-            });
-            }catch (e) {
-                console.log(e);
-            }
-        };
-        fetchTotalList();
+        fetchTotalList(dates, dateList);
 
         //Pass functions nextMonth, nextYear, previousMonth, previousYear
         //fetched from dateGenerator inside calendar
@@ -87,38 +63,86 @@ function DisplayCalendar() {
         });
     }, [calendar.month])
 
-    const setDateList =(dates)=>{
-        var dateList = [];
+    const fetchTotalList = async (dates, dateList) => {
+        try {
+            const res = await axios.get('http://localhost:9000/getTotalList', {
+                params: {
+                    userId: '602dcc4207d54e4b3c41d835',
+                    dateList: dateList
+                }
+            });
 
-    //2021-1-17
-    //Object { date: 31, month: 0, year: 2021 }
+            if (null !== res.data.totalList && !res.data.error) {
+                const totalList = res.data.totalList;
 
-    //console.log(dates);
+                updateDates(dates, dateList, totalList);
+
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    const updateDates = (dates, dateList, totalList) => {
+
+        var totalHashMap = new Map();
+
+        console.log(dateList);
+        console.log(totalList);
+        var j = 0;
+        var i = 0;
+        var totalValue;
+        var dateString;
+
+        while(i < dateList.length){
+
+            if(j < totalList.length && dateList[i] === (totalList[j].listDate)){
+                totalHashMap.set(dateList[i], totalList[j].listTotal);
+                j++;
+                i++;
+            }else{
+                totalHashMap.set(dateList[i], '0');
+                i++;
+            }
+        }
 
         dates.map((week) => {
             week.map((each) => {
-                var dateString = each.year+'-'+each.month+'-'+each.date;
+                dateString = each.year + '-' + each.month + '-' + each.date;
+                totalValue = parseInt(totalHashMap.get(dateString));
+                Object.assign(each, {total: totalValue});
+            })
+        })
+        //console.log(totalHashMap);
+        //Pass dates fetched from dateGenerator inside calendarDateList
+        setDateData([...dates]);
+        console.log(dates);
+        return 0;
+    }
+
+    const setDateList = (dates) => {
+        var dateList = [];
+
+        dates.map((week) => {
+            week.map((each) => {
+                var dateString = each.year + '-' + each.month + '-' + each.date;
                 dateList.push(dateString);
             })
         })
-        
-        return dateList;
 
+        return dateList;
     }
 
-    function onClickNext(){
+    function onClickNext() {
         const body = {
             month: calendar.nextMonth,
             year: calendar.nextYear
         };
 
-        const {dates, nextMonth, nextYear, previousMonth, previousYear} = datesGenerator(body);
+        const { dates, nextMonth, nextYear, previousMonth, previousYear } = datesGenerator(body);
 
-        //console.log(dateData.calendarDateList); 
-        setDateData({
-            ...dateData,
-            calendarDateList: [...dates]
-        })
+        const dateList = setDateList(dates);
+        fetchTotalList(dates, dateList);
 
         setCalendar({
             ...calendar,
@@ -131,19 +155,16 @@ function DisplayCalendar() {
         });
     }
 
-    function onClickPrevious(){
+    function onClickPrevious() {
         const body = {
             month: calendar.previousMonth,
             year: calendar.previousYear
         };
 
-        const {dates, nextMonth, nextYear, previousMonth, previousYear} = datesGenerator(body);
+        const { dates, nextMonth, nextYear, previousMonth, previousYear } = datesGenerator(body);
 
-        //console.log(dateData.calendarDateList); 
-        setDateData({
-            ...dateData,
-            calendarDateList: [...dates]
-        })
+        const dateList = setDateList(dates);
+        fetchTotalList(dates, dateList);
 
         setCalendar({
             ...calendar,
@@ -156,18 +177,18 @@ function DisplayCalendar() {
         });
     }
 
-    function onSelectDate(date){
+    function onSelectDate(date) {
         setSelectedDate(new Date(date.year, date.month, date.date))
     }
 
     return (
         <div style={{ width: '100%', paddingTop: 50 }}>
             <Container>
-                <div style={{padding: 10}}>
-                    <div onClick={onClickPrevious} style={{float: 'left', width: '50%'}}>
+                <div style={{ padding: 10 }}>
+                    <div onClick={onClickPrevious} style={{ float: 'left', width: '50%' }}>
                         Prev
                     </div>
-                    <div onClick={onClickNext} style={{float: 'left', width: '50%', textAlign: 'right'}}>
+                    <div onClick={onClickNext} style={{ float: 'left', width: '50%', textAlign: 'right' }}>
                         Next
                     </div>
                 </div>
@@ -181,7 +202,7 @@ function DisplayCalendar() {
                             <tbody>
                                 <tr>
                                     {days.map((day) => (
-                                        <td key={day} style={{ padding: '5px 0', border: 'solid blue'}}>
+                                        <td key={day} style={{ padding: '5px 0', border: 'solid blue' }}>
                                             <div style={{ textAlign: 'center', padding: '5px 0' }}>
                                                 {day}
                                             </div>
@@ -189,22 +210,25 @@ function DisplayCalendar() {
                                     ))}
                                 </tr>
 
-                                {dateData.calendarDateList.length > 0 && dateData.calendarDateList.map((week,index) => (
+                                {dateData.length > 0 && dateData.map((week, index) => (
                                     <tr key={index}>
-                                        {week.map((each,subIndex) => (   
-                                            <td key={subIndex} style={{ padding: '5px 0', border: 'solid red' }}> 
-                                                <div onClick = {() => onSelectDate(each)} style={{ textAlign: 'center', padding: '5px 0' }}>
+                                        {week.map((each, subIndex) => (
+                                            <td key={subIndex} style={{ padding: '5px 0', border: 'solid red' }}>
+                                                <div onClick={() => onSelectDate(each)} style={{ textAlign: 'center', padding: '5px 0' }}>
                                                     {each.date}
                                                 </div>
-                                             </td>
-                                        ))} 
+                                                <div style={{ textAlign: 'center', padding: '5px 0' }}>
+                                                    T:{each.total}
+                                                </div>
+                                            </td>
+                                        ))}
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <div style={{padding: 10}}>
+                <div style={{ padding: 10 }}>
                     Selected Date: {selectedDate.toDateString()}
                 </div>
             </Container>
