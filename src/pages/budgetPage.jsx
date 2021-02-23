@@ -3,6 +3,7 @@ import axios from 'axios';
 import CreateItem from '../component/budgetComponent/createItem';
 import DisplayItemList from '../component/budgetComponent/displayItemList';
 import DisplayCalendar from '../component/budgetComponent/displayCalendar';
+import DisplayBudgetGraph from '../component/budgetGraphComponent/displayBudgetGraph';
 import { Link } from "react-router-dom";
 
 function BudgetPage(props) {
@@ -177,6 +178,8 @@ function BudgetPage(props) {
             {/* <h3>{findTotal(itemList)}</h3> */}
             <h3>{itemList.listTotal}</h3>
             <DisplayCalendar />
+            <DisplayBudgetGraph/>
+            
         </div>
     )
 }
