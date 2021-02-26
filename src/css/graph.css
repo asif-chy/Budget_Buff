@@ -10,12 +10,18 @@ to calculate where it should be placed */
 }
 
 .line{
-    position:absolute;
+    /* position:absolute;
     top: 0;
     bottom: 0;
     width: 10px;
     background: #6ed4c6;
-    left: 0%;
+    left: 0%; */
+
+    height: 10%;
+    background: tomato;
+    z-index: 25;
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
 }
 
 .barContainer{
@@ -36,10 +42,15 @@ An element with greater stack order is always in front of an element with a lowe
 Note: z-index only works on positioned elements (position: absolute, position: relative, position: fixed, or position: sticky). */
 
 .bar{
-    height: 5%;
+    /* height: 5%;
     background: tomato;
     z-index: 25;
     border-bottom: 1px solid white;
-    border-right: 1px solid white;
+    border-right: 1px solid white; */
+
+    position:absolute;
+    /* //top: 0; */
+    bottom: 0; 
+    background: #6ed4c6;
 }
 

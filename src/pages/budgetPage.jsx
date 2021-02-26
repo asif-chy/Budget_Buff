@@ -16,6 +16,8 @@ function BudgetPage(props) {
         list: []
     });
 
+    const [dateData, setDateData] = React.useState([]);
+
     //console.log(props);
 
     React.useEffect(() => {
@@ -96,6 +98,15 @@ function BudgetPage(props) {
 
     }, [itemList.list]);
 
+    function findTotal(itemList) {
+        var listTotal = 0;
+        itemList.list.forEach((item) => {
+            listTotal = parseInt((listTotal) + parseInt(item.amount));
+            console.log(listTotal);
+        })
+
+        return listTotal;
+    }
 
     function updateItemList(item) {
         setItemList(previousValue => {
@@ -139,26 +150,9 @@ function BudgetPage(props) {
         }
     }
 
-    function findTotal(itemList) {
-        var listTotal = 0;
-        itemList.list.forEach((item) => {
-            listTotal = parseInt((listTotal) + parseInt(item.amount));
-            console.log(listTotal);
-        })
-
-        return listTotal;
-
+    function updateDateData(dateList){
+        setDateData([...dateList]);
     }
-
-    // calculateTotal = (numbers) => {
-    //     return Object.entries(numbers).reduce((finalValue, [key, value]) => {
-    //       if (value === "") {
-    //         // if entered value is empty string "", omits it
-    //         return finalValue;
-    //       }
-    //       return finalValue + value;
-    //     }, 0);
-    //   }
 
     return (
         <div>
@@ -177,8 +171,12 @@ function BudgetPage(props) {
             </form>
             {/* <h3>{findTotal(itemList)}</h3> */}
             <h3>{itemList.listTotal}</h3>
-            <DisplayCalendar />
-            <DisplayBudgetGraph/>
+            <DisplayCalendar 
+                onAddDateList={updateDateData}
+            />
+            <DisplayBudgetGraph
+                dateList = {dateData}
+            />
             
         </div>
     )

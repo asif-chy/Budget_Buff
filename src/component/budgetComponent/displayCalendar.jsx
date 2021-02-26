@@ -22,7 +22,7 @@ const MonthText = styled.div`
     text-align: center;
 `
 
-function DisplayCalendar() {
+function DisplayCalendar(props) {
     const [selectedDate, setSelectedDate] = useState(new Date());
 
     const [dateData, setDateData] = useState([]);
@@ -87,12 +87,13 @@ function DisplayCalendar() {
 
         var totalHashMap = new Map();
 
-        console.log(dateList);
-        console.log(totalList);
+        //console.log(dateList);
+        //console.log(totalList);
         var j = 0;
         var i = 0;
         var totalValue;
         var dateString;
+        var dateIndex = 0;
 
         while(i < dateList.length){
 
@@ -111,13 +112,15 @@ function DisplayCalendar() {
                 dateString = each.year + '-' + each.month + '-' + each.date;
                 totalValue = parseInt(totalHashMap.get(dateString));
                 Object.assign(each, {total: totalValue});
+                Object.assign(each, {dateIndex: dateIndex});
+                dateIndex++;
             })
         })
         //console.log(totalHashMap);
         //Pass dates fetched from dateGenerator inside calendarDateList
         setDateData([...dates]);
-        console.log(dates);
-        return 0;
+        props.onAddDateList(dates);
+        //console.log(dates);
     }
 
     const setDateList = (dates) => {
