@@ -9,21 +9,6 @@ to calculate where it should be placed */
     background: #de7c14
 }
 
-.line{
-    /* position:absolute;
-    top: 0;
-    bottom: 0;
-    width: 10px;
-    background: #6ed4c6;
-    left: 0%; */
-
-    height: 10%;
-    background: tomato;
-    z-index: 25;
-    border-bottom: 1px solid white;
-    border-right: 1px solid white;
-}
-
 .barContainer{
     position:relative;
     width: 95%;
@@ -31,10 +16,20 @@ to calculate where it should be placed */
     background: black;
 }
 
-.graphAmountText{
-    height: 100%;
-    width: 5%;
-    background: yellow;
+.line{
+    /* position:absolute;
+    top: 0;
+    bottom: 0;
+    width: 10px;
+    background: #6ed4c6;
+    left: 0%; */
+    position: absolute;
+    width :100%;
+    height: 1%;
+    background: tomato;
+    /* //z-index: 25; */
+    /* border-bottom: 1px solid white;
+    border-right: 1px solid white; */
 }
 
 /* The z-index property specifies the stack order of an element.
@@ -47,10 +42,22 @@ Note: z-index only works on positioned elements (position: absolute, position: r
     z-index: 25;
     border-bottom: 1px solid white;
     border-right: 1px solid white; */
-
+    z-index: 25;
     position:absolute;
     /* //top: 0; */
     bottom: 0; 
     background: #6ed4c6;
+}
+
+.graphAmountText{
+    height: 100%;
+    width: 5%;
+    bottom: 10%;
+    background: yellow;
+}
+
+.text{
+    position: absolute;
+    width :100%;
 }
 

@@ -8,24 +8,68 @@ import { datesGenerator } from 'dates-generator';
 function DisplayBudgetGraph(props) {
 
     const [barData, setBarData] = useState({
-        barWidth:"",
+        barWidth: "",
         barMaxHeight: "",
     })
 
-    useEffect (()=>{
+    const [lineData, setLineData] = useState({
+        lineDataArray: [],
+        lineArray: []
+    })
+
+    useEffect(() => {
 
         const maxDays = findMaxDays(props.dateList);
         setWidthValue(maxDays);
 
-        setMaxHeightValue(props.dateList);
+        const maxHeight = setMaxHeightValue(props.dateList);
+        setLineDataArray(maxHeight);
+        setLineArray();
 
+    }, [props.dateList])
 
-    },[props.dateList])
+    function setLineArray() {
+        var lineArray = [];
+        var lineValue = 0;
 
-    const findMaxDays = (dateList) =>{
+        for (var i = 1; i < 10; i++) {
+            lineValue = 1 * i;
+            lineArray.push(lineValue);
+        }
+
+        setLineData(previousValue => {
+            return {
+                ...previousValue,
+                lineArray: lineArray
+            };
+        })
+    }
+
+    function setLineDataArray(barMaxHeight) {
+
+        var lineData = [];
+        var lineMultiplier = (barMaxHeight / 10);
+        //console.log(lineMultiplier);
+        var lineValue = 0;
+
+        for (var i = 1; i < 10; i++) {
+            lineValue = lineMultiplier * i;
+            lineData.push(lineValue);
+        }
+        //console.log(lineData);
+
+        setLineData(previousValue => {
+            return {
+                ...previousValue,
+                lineDataArray: lineData
+            };
+        })
+    }
+
+    const findMaxDays = (dateList) => {
 
         var maxDays = 0;
-        
+
         dateList.map((week) => {
             maxDays = week.length + maxDays;
         });
@@ -33,67 +77,74 @@ function DisplayBudgetGraph(props) {
         return maxDays;
     }
 
-    function setWidthValue(maxDays){
+    function setWidthValue(maxDays) {
 
         console.log(maxDays);
 
-        const width = 100/maxDays;
+        const width = 100 / maxDays;
 
         console.log(width + " Width Value");
 
         setBarData(previousValue => {
-            return{
+            return {
                 ...previousValue,
-                barWidth:width
+                barWidth: width
             }
         })
 
     }
 
-    function setMaxHeightValue(dateList){
+    function setMaxHeightValue(dateList) {
 
         var maxTotalValue = 0;
         var maxHeight = 1;
 
-        dateList.map((week) =>{
+        dateList.map((week) => {
             week.map((each) => {
                 maxTotalValue = Math.max(each.total, maxTotalValue);
             })
         })
 
-        for(var i = 0; i < (maxTotalValue.toString().length); i++){
+        for (var i = 0; i < (maxTotalValue.toString().length); i++) {
             maxHeight = maxHeight + "0";
         }
 
         console.log(maxHeight);
 
         setBarData(previousValue => {
-            return{
+            return {
                 ...previousValue,
-                barMaxHeight:maxHeight
+                barMaxHeight: maxHeight
             }
         })
+
+        return maxHeight;
     }
 
     return (
-        <div className ="graph-wrapper">
-            <div className = "graph">
+        <div className="graph-wrapper">
+            <div className="graph">
 
-            <CreateGraphAmountText/>
+                <CreateGraphAmountText 
+                    lineDataArray={lineData.lineDataArray} />
 
-            <div class="barContainer">
-                <CreateBudgetGraphLine/>
-                {props.dateList.map((week)=>(
-                    week.map((each,index) => (
-                        <CreateBar key = {index}
-                            barWidth={barData.barWidth}
-                            barMaxHeight = {barData.barMaxHeight}
-                            total = {each.total}
-                            dateIndex = {each.dateIndex}
+                <div class="barContainer">
+                    {lineData.lineArray.map((line, index) => (
+                        <CreateBudgetGraphLine key={index}
+                            bottomValue={line}
                         />
-                    ))  
-                ))}
-            </div>
+                    ))}
+                    {props.dateList.map((week) => (
+                        week.map((each, index) => (
+                            <CreateBar key={index}
+                                barWidth={barData.barWidth}
+                                barMaxHeight={barData.barMaxHeight}
+                                total={each.total}
+                                dateIndex={each.dateIndex}
+                            />
+                        ))
+                    ))}
+                </div>
             </div>
         </div>
     )
