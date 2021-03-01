@@ -72,7 +72,7 @@ function BudgetPage(props) {
                             }
                         })
                     }
-                    console.log(itemList)
+                    //console.log(itemList)
                 }
             } catch (e) {
                 console.log(e);
@@ -85,7 +85,6 @@ function BudgetPage(props) {
 
         const updateListTotal = () => {
             const initListTotal = findTotal(itemList);
-
             setItemList(previousValue => {
                 return {
                     ...previousValue,
@@ -102,9 +101,7 @@ function BudgetPage(props) {
         var listTotal = 0;
         itemList.list.forEach((item) => {
             listTotal = parseInt((listTotal) + parseInt(item.amount));
-            console.log(listTotal);
         })
-
         return listTotal;
     }
 
@@ -172,6 +169,7 @@ function BudgetPage(props) {
             {/* <h3>{findTotal(itemList)}</h3> */}
             <h3>{itemList.listTotal}</h3>
             <DisplayCalendar 
+                itemList = {itemList}
                 onAddDateList={updateDateData}
             />
             <DisplayBudgetGraph

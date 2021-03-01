@@ -52,7 +52,6 @@ Note: z-index only works on positioned elements (position: absolute, position: r
 .graphAmountText{
     height: 100%;
     width: 5%;
-    bottom: 10%;
     background: yellow;
 }
 

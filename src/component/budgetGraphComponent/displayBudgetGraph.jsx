@@ -79,11 +79,7 @@ function DisplayBudgetGraph(props) {
 
     function setWidthValue(maxDays) {
 
-        console.log(maxDays);
-
         const width = 100 / maxDays;
-
-        console.log(width + " Width Value");
 
         setBarData(previousValue => {
             return {

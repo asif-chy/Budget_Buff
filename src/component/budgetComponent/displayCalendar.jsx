@@ -32,11 +32,27 @@ function DisplayCalendar(props) {
         year: selectedDate.getFullYear()
     });
 
-    //console.log(selectedDate);
-    //console.log(calendar);
+    const [userData, setUserData] = useState({
+        userId: ""
+    });
+
+    //console.log(props.itemList.userId);
+    useEffect(() => {
+
+        const userId = props.itemList.userId;
+        //console.log(userId);
+
+        setUserData({
+            userId:userId
+        })
+        
+    },[props.itemList.userId])
 
     useEffect(() => {
 
+        console.log(userData);
+
+        if(userData.userId !== ""){
         //Assign Current Month/Year to body
         const body = {
             month: calendar.month,
@@ -49,8 +65,11 @@ function DisplayCalendar(props) {
 
         const dateList = setDateList(dates);
         //console.log(dateList);
+        //console.log(props);
+        const userId = props.itemList.userId;
+        //console.log(userId);
 
-        fetchTotalList(dates, dateList);
+        fetchTotalList(dates, dateList, userId);
 
         //Pass functions nextMonth, nextYear, previousMonth, previousYear
         //fetched from dateGenerator inside calendar
@@ -61,13 +80,16 @@ function DisplayCalendar(props) {
             previousMonth,
             previousYear
         });
-    }, [calendar.month])
+    }
+    }, [calendar.month,userData])
 
-    const fetchTotalList = async (dates, dateList) => {
+
+
+    const fetchTotalList = async (dates, dateList, userId) => {
         try {
             const res = await axios.get('http://localhost:9000/getTotalList', {
                 params: {
-                    userId: '602dcc4207d54e4b3c41d835',
+                    userId: userId,
                     dateList: dateList
                 }
             });
@@ -145,7 +167,8 @@ function DisplayCalendar(props) {
         const { dates, nextMonth, nextYear, previousMonth, previousYear } = datesGenerator(body);
 
         const dateList = setDateList(dates);
-        fetchTotalList(dates, dateList);
+        const userId = props.userId;
+        fetchTotalList(dates, dateList, userId);
 
         setCalendar({
             ...calendar,
@@ -167,7 +190,8 @@ function DisplayCalendar(props) {
         const { dates, nextMonth, nextYear, previousMonth, previousYear } = datesGenerator(body);
 
         const dateList = setDateList(dates);
-        fetchTotalList(dates, dateList);
+        const userId = props.userId;
+        fetchTotalList(dates, dateList, userId);
 
         setCalendar({
             ...calendar,
