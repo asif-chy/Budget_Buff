@@ -147,35 +147,51 @@ function BudgetPage(props) {
         }
     }
 
-    function updateDateData(dateList){
+    function updateDateData(dateList) {
         setDateData([...dateList]);
     }
 
     return (
-        <div>
-            <h1>Budget Page</h1>
-            <Link to="/">Home</Link>
-            <form onSubmit={handleBudgetSubmit}>
-                <CreateItem
-                    onAdd={updateItemList}
-                />
-                {itemList.list.map((item, index) =>
-                (<DisplayItemList key={index}
-                    item={item}
-                    deleteItem={deleteItem}
-                />))}
-                <button type="submit">Save</button>
-            </form>
-            {/* <h3>{findTotal(itemList)}</h3> */}
-            <h3>{itemList.listTotal}</h3>
-            <DisplayCalendar 
-                itemList = {itemList}
+        <div className="budgetPage">
+            <div className="budgetListContainer">
+                <div className="budgetListBox">
+                    <h1 id="budgetListTitle">BUDGET LIST</h1>
+                    <div className="budgetListHeaderOne">
+                        <h3 id="budgetListDate">DATE</h3>
+                        <Link id="budgetListHomeLink" to="/">HOME</Link>
+                    </div>
+                    <div className="budgetListHeaderTwo">
+                        <h3 id="budgetListItem">ITEM</h3>
+                        <h3 id="budgetListPrice">PRICE</h3>
+                    </div>
+                    <form onSubmit={handleBudgetSubmit} className="budgetListForm">
+                        <CreateItem
+                            onAdd={updateItemList}
+                        />
+                        <ol className="budgetOrderedList">
+                            {itemList.list.map((item, index) =>
+                            (<DisplayItemList key={index}
+                                item={item}
+                                deleteItem={deleteItem}
+                            />))}
+                        </ol>
+
+                        <div className="budgetListHeaderThree">
+                            <h3 id="budgetListTotal">TOTAL: ${itemList.listTotal}</h3>
+                            <button type="submit" id="budgetListSaveList">Save</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <DisplayCalendar
+                itemList={itemList}
                 onAddDateList={updateDateData}
             />
             <DisplayBudgetGraph
-                dateList = {dateData}
+                dateList={dateData}
             />
-            
+
         </div>
     )
 }

@@ -14,11 +14,11 @@ function DisplayItemList(props) {
 
 
     return (
-        <li>
-            <h3>{props.item.itemId}</h3>
-            <h3>{props.item.itemName}</h3>
-            <h4>{props.item.amount}</h4>
-            <button type="button" onClick={handleItemDelete}>Delete</button>
+        <li className="budgetList">
+            {/* <h3>{props.item.itemId}</h3> */}
+            <h3 id="budgetListDisplayItem">{props.item.itemName}</h3>
+            <h4 id="budgetListDisplayPrice">${props.item.amount}</h4>
+            <button type="button" onClick={handleItemDelete} id="budgetListDeleteItem"><i className="fa fa-trash"></i></button>
         </li>
     )
 }

@@ -5,6 +5,8 @@ import CreateBar from './createBar';
 import '../../css/graph.css';
 import { datesGenerator } from 'dates-generator';
 
+// https://medium.com/@ItsMeDannyZ/how-to-build-a-bar-graph-with-react-458a19ef0ba0
+
 function DisplayBudgetGraph(props) {
 
     const [barData, setBarData] = useState({

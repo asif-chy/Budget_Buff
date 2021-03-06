@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import CreateUser from '../component/appComponent/createUser';
 import DisplayUserList from '../component/appComponent/displayUserList';
+import '../css/styles.css';
 
 function HomePage() {
 
@@ -46,7 +47,9 @@ function HomePage() {
     }
 
     return (
-        <div>
+        <div className="homePage">
+        <h1 id="homePageTitle">BUDGET BUFF</h1>
+        <div className = "userContainer">
             <CreateUser
                 onAdd={updateUserList}
             />
@@ -55,6 +58,7 @@ function HomePage() {
                 item={user}
                 delete={deleteUser}
             />))}
+        </div>
         </div>
     )
 }

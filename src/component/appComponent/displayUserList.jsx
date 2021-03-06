@@ -19,16 +19,16 @@ function DisplayUserList(props) {
       }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="displayUserForm">
 
-            <Link
+            <Link id="displayUserLink"
                 to={{
                     pathname: "/budget",
                     userData
                 }}
             >{props.item.userName}</Link>
 
-            <button type="submit">Delete</button>
+            <button type="submit" id="displayUserDeleteButton"><i className="fa fa-trash"></i></button>
         </form>
     )
 }

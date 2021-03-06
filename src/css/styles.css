@@ -1,0 +1,304 @@
+.body{
+    margin: 0px;
+    padding: 0px;
+}
+
+
+/* homePage.jsx stylying */
+
+.homePage{
+    text-align: center;
+    height: 100%;
+    background: cornsilk;
+}
+
+#homePageTitle{
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    padding-top: 5%;
+    padding-right: 20%;
+    padding-left: 20%;
+}
+
+.userContainer{
+    position: relative;
+    padding-top: 5%;
+    padding-right: 20%;
+    padding-left: 20%;
+}
+
+.createUserForm{
+    position: relative;
+    padding-top: 20px;
+    height: 50px;
+    padding-bottom: 20px;
+}
+
+#createUserInput{
+    position: absolute;
+    left: 33%;
+    text-align: center;
+    font-family: 'Rubik', sans-serif;
+    font-size: large;
+    width: 25%;
+    height: 30px;
+    border-radius: 20px;
+    outline: none;
+    border: 5px solid #2a9d8f ;
+}
+
+#createUserInput:focus{
+    background: #e1fffc;
+}
+
+#createUserButton{
+    position: absolute;
+    left: 62%;
+    top: 24%;
+    padding: 0;
+    border:none;
+    background-color:transparent;
+    outline:none; 
+}
+
+.displayUserForm{
+    position: relative;
+    margin-top: -2.5px;
+    height: 35px;
+
+    border-top:solid;
+    border-bottom: solid;
+}
+
+
+
+#displayUserLink{
+    position: absolute;
+    text-align: center;
+    width: 25%;
+    top:20%;
+    left: 33.5%;
+    font-family: 'Rubik', sans-serif;
+    font-size: medium;
+}
+
+#displayUserDeleteButton{
+    position: absolute;
+    top:20%;
+    left: 62%;
+    border:none;
+    background-color:transparent;
+    outline:none;
+    
+}
+
+/* budgetPage.jsx stylying */
+
+.budgetPage{
+    text-align: center;
+    height: 100%;
+    background: cornsilk;
+}
+
+.budgetListContainer{
+    position: relative;
+    width: 50%;
+    height: 100vh;
+    border: solid blue;
+}
+
+.budgetListBox{
+    position: relative;
+    box-shadow: 0 0 6px 6px rgb(89, 196, 89);
+    margin: 5%;
+    height: 90vh;
+    font-family: 'Rubik', sans-serif;
+}
+
+#budgetListTitle{
+    margin: 0px;
+    padding-top: 5%;
+    font-family: 'Roboto', sans-serif;
+}
+
+.budgetListHeaderOne{
+    position: relative;
+    text-align: center;
+    width: 90%;
+    height: 5%;
+    padding-top: 3%;
+    margin: 0 auto;
+    border-bottom: solid black;
+}
+
+#budgetListDate{
+    position: absolute;
+    margin: 0;
+    left: 0;
+    bottom: 0;
+}
+#budgetListHomeLink{
+    position: absolute;
+    margin: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.budgetListHeaderTwo{
+    position: relative;
+    text-align: center;
+    width: 90%;
+    height: 5%;
+    padding-top: 3%;
+    margin: 0 auto;
+    border-bottom: solid black;
+}
+
+#budgetListItem{
+    position: absolute;
+    margin: 0;
+    left: 0;
+    bottom: 0;
+}
+
+#budgetListPrice{
+    position: absolute;
+    margin: 0;
+    left: 47%;
+    bottom: 0;
+}
+
+.budgetListForm{
+    position: relative;
+    /* border: solid orange; */
+    height: 70%;
+}
+
+.budgetListCreateItem{
+    position: relative;
+    text-align: center;
+    width: 90%;
+    height: 10%;
+    margin: 0 auto;
+}
+
+#createItemInput{
+    position: absolute;
+    margin: 0;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+    font-family: 'Rubik', sans-serif;
+    font-size: medium;
+    width: 25%;
+    border-radius: 0 20px 20px 0;
+    border: 5px solid #2a9d8f ;
+    outline: none;
+}
+
+#createItemInput:focus{
+    background: #e1fffc;
+}
+
+#createItemPrice{
+    position: absolute;
+    margin: 0;
+    left: 47%;
+    bottom: 0;
+    text-align: center;
+    font-family: 'Rubik', sans-serif;
+    font-size: medium;
+    width: 25%;
+    border-radius: 0 20px 20px 0;
+    border: 5px solid #2a9d8f ;
+    outline: none;
+}
+
+#createItemPrice:focus{
+    background: #e1fffc;
+}
+
+#createItemButton{
+    position: absolute;
+    margin: 0;
+    right:  0;
+    bottom: 0;
+    border:none;
+    background-color:transparent;
+    outline:none; 
+}
+
+.budgetOrderedList{
+    position: relative;
+    width: 90%;
+    height: 10%;
+    padding: 0;
+    margin: 0 auto;
+}
+
+.budgetList{
+    position: relative;
+    list-style-position: inside;
+    text-align: left;
+    width: 100%;
+    height: 45%;
+    margin: 0 auto;
+    padding: 0;
+    padding-top: 2.5%;
+    border-bottom: solid #2a9d8f ;
+}
+
+#budgetListDisplayItem{
+    position: absolute;
+    margin: 0;
+    left: 5%;
+    bottom: 0;
+}
+
+#budgetListDisplayPrice{
+    position: absolute;
+    margin: 0;
+    left: 47%;
+    bottom: 0;
+}
+
+#budgetListDeleteItem{
+    position: absolute;
+    margin: 0;
+    right: 1%;
+    bottom: 0;
+    border:none;
+    background-color:transparent;
+    outline:none; 
+}
+
+.budgetListHeaderThree{
+    position: absolute;
+    text-align: center;
+    width: 90%;
+    height: 5%;
+    margin: 0 4.5%;
+    bottom: 0;
+    /* border: solid purple; */
+}
+
+#budgetListTotal{
+    position: absolute;
+    margin: 0 auto;
+    padding: 0;
+    left:0
+}
+
+#budgetListSaveList{
+    position: absolute;
+    margin: 0 auto;
+    padding: 0;
+    right: 0;
+    /* bottom: 0;
+    left: 0; */
+    /* border:none;
+    background-color:transparent;
+    outline:none;  */
+}
+
+

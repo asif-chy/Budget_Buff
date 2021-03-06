@@ -39,10 +39,10 @@ function CreateItem(props){
       }
 
     return(
-        <div>
-            <input  type="text" name="itemName" placeholder="Add Item" onChange={addItem}></input>
-            <input  type="text" name="amount" placeholder="Add Amount" onChange={addItem}></input>
-            <button type="button" onClick={handleItemCreate}>Add Item</button>
+        <div className="budgetListCreateItem">
+            <input  type="text" name="itemName" placeholder="ADD ITEM" onChange={addItem} id="createItemInput"></input>
+            <input  type="text" name="amount" placeholder="ADD AMOUNT" onChange={addItem} id="createItemPrice"></input>
+            <button type="button" onClick={handleItemCreate} id="createItemButton"><i className="fa fa-plus fa-2x"></i></button>
         </div>
     )
 }
