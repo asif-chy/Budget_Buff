@@ -120,7 +120,7 @@ function DisplayBudgetGraph(props) {
     }
 
     return (
-        <div className="graph-wrapper">
+        <div className="budgetGraphBox">
             <div className="graph">
 
                 <CreateGraphAmountText 

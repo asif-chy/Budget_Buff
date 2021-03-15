@@ -1,4 +1,6 @@
 .body{
+    margin-left:auto;
+    margin-right:auto;
     margin: 0px;
     padding: 0px;
 }
@@ -93,30 +95,41 @@
 }
 
 /* budgetPage.jsx stylying */
+/* budgetPage.jsx Budget List stylying */
 
 .budgetPage{
+    display: flex;
+    flex-flow: row wrap;
     text-align: center;
     height: 100%;
     background: cornsilk;
 }
 
-.budgetListContainer{
-    position: relative;
-    width: 50%;
-    height: 100vh;
-    border: solid blue;
-}
-
 .budgetListBox{
     position: relative;
-    box-shadow: 0 0 6px 6px rgb(89, 196, 89);
+    padding: 0;
+    width: 50%;
+    height: 40rem;
+    /* border: solid blue; */
+}
+
+@media screen and (max-width: 1024px) {
+    .budgetListBox {
+       width: 100%;
+    }
+ }
+
+.budgetListContainer{
+    position: relative;
+    border-radius: 10px;
+    border:2px solid #237e73;
     margin: 5%;
-    height: 90vh;
+    height: 36rem;
     font-family: 'Rubik', sans-serif;
 }
 
 #budgetListTitle{
-    margin: 0px;
+    margin: 0 auto;
     padding-top: 5%;
     font-family: 'Roboto', sans-serif;
 }
@@ -171,14 +184,15 @@
 .budgetListForm{
     position: relative;
     /* border: solid orange; */
-    height: 70%;
+    height: 70%;;
 }
 
 .budgetListCreateItem{
     position: relative;
     text-align: center;
     width: 90%;
-    height: 10%;
+    height: 8%;
+    padding-top: 2%;
     margin: 0 auto;
 }
 
@@ -231,9 +245,11 @@
 .budgetOrderedList{
     position: relative;
     width: 90%;
-    height: 10%;
-    padding: 0;
+    height: 80%;
+    padding: 1% 0 0 0;
     margin: 0 auto;
+    overflow-y: scroll;
+    /* border: 2px solid rgb(83, 223, 169); */
 }
 
 .budgetList{
@@ -241,7 +257,7 @@
     list-style-position: inside;
     text-align: left;
     width: 100%;
-    height: 45%;
+    height: 6%;
     margin: 0 auto;
     padding: 0;
     padding-top: 2.5%;
@@ -276,7 +292,7 @@
     position: absolute;
     text-align: center;
     width: 90%;
-    height: 5%;
+    height: 7%;
     margin: 0 4.5%;
     bottom: 0;
     /* border: solid purple; */
@@ -294,11 +310,88 @@
     margin: 0 auto;
     padding: 0;
     right: 0;
-    /* bottom: 0;
-    left: 0; */
-    /* border:none;
+    border:none;
     background-color:transparent;
-    outline:none;  */
+    outline:none; 
+}
+
+/* budgetPage.jsx stylying */
+/* budgetPage.jsx Budget Calendar stylying */
+
+.budgetCalendarBox{
+    position: relative;
+    width: 50%;
+    padding: 0;
+    height: 100%;
+    /* border: solid royalblue; */
+}
+
+@media screen and (max-width: 1024px) {
+    .budgetCalendarBox {
+       width: 100%;
+    }
+ }
+
+.budgetCalendarContainer{
+    position: relative;
+    width: 80%;
+    height: 90%;
+    margin: 0 auto; 
+    margin-top: 5%;
+    margin-bottom: 5%;
+    border-radius: 10px;
+    border:2px solid #237e73;
+    font-family: 'Rubik', sans-serif;
+}
+
+.budgetCalendarPrevNext{
+    position: relative;
+    display: block;
+    height: 2.5rem;
+    width: 100%;
+}
+
+.budgetCalendarMonth{
+    position: relative;
+    display: block;
+    padding-bottom: 2%;
+    height: 2rem;
+    font-size: 2rem;
+    font-style: bold;
+} 
+
+#budgetCalendarPrev{
+    position: absolute;
+    height: 1.5rem;
+    width: 25%;
+    font-size: 1.2rem;
+    left:10%;
+    bottom: 0;
+}
+
+#budgetCalendarNext{
+    position: absolute;
+    height: 1.5rem;
+    width: 25%;
+    font-size: 1.2rem;
+    right: 10%;
+    bottom: 0;
+}
+
+.budgetCalendarTableRowWeek{
+    padding: 1% 0;
+    width: 14.28%;
+    border: solid #237e73;
+    border-radius: 10px;
+    background-color: rgb(83, 223, 169);
+}
+
+
+.budgetCalendarTableRowDay{
+    padding: 1% 0;
+    border: solid #237e73;
+    border-radius: 5px;
+    background-color:  rgb(162, 243, 212);
 }
 
 

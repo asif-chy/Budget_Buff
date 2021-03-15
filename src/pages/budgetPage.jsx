@@ -18,27 +18,39 @@ function BudgetPage(props) {
 
     const [dateData, setDateData] = React.useState([]);
 
-    //console.log(props);
+    console.log(props);
 
+    console.log("im here");
     React.useEffect(() => {
+        
         const fetchItemList = async () => {
             try {
 
+                console.log(props.location.userData[0]);
+                console.log(props.location.each);
+                console.log("im here");
                 if (props.location.userData === undefined) {
                     console.log("Calling Replace");
                     props.history.replace('/');
                 } else {
                     console.log("Setting Id");
-                    var id = props.location.userData[1];
+                    var id = props.location.userData[0];
                 }
 
-                const date = new Date();
-                var year = date.getFullYear();
-                var month = date.getMonth();
-                var day = date.getDate();
-                const currentDate = year + '-' + month + '-' + day;
+                var currentDate = null;
+                if(props.location.each === undefined){
+                    const date = new Date();
+                    var year = date.getFullYear();
+                    var month = date.getMonth();
+                    var day = date.getDate();
+                    currentDate = year + '-' + month + '-' + day;
+                } else{
+                    console.log("Setting Date");
+                    currentDate = props.location.each.year + '-' + props.location.each.month + '-' + props.location.each.date;
+                }
 
                 console.log(currentDate);
+                console.log(id);
 
                 setItemList(previousValue => {
                     return {
@@ -79,7 +91,7 @@ function BudgetPage(props) {
             }
         };
         fetchItemList();
-    }, []);
+    }, [props.location.each]);
 
     React.useEffect(() => {
 
@@ -153,8 +165,8 @@ function BudgetPage(props) {
 
     return (
         <div className="budgetPage">
-            <div className="budgetListContainer">
-                <div className="budgetListBox">
+            <div className="budgetListBox">
+                <div className="budgetListContainer">
                     <h1 id="budgetListTitle">BUDGET LIST</h1>
                     <div className="budgetListHeaderOne">
                         <h3 id="budgetListDate">DATE</h3>
@@ -178,7 +190,7 @@ function BudgetPage(props) {
 
                         <div className="budgetListHeaderThree">
                             <h3 id="budgetListTotal">TOTAL: ${itemList.listTotal}</h3>
-                            <button type="submit" id="budgetListSaveList">Save</button>
+                            <button type="submit" id="budgetListSaveList"><i class="fa fa-save fa-2x"></i></button>
                         </div>
 
                     </form>

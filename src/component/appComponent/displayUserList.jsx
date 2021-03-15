@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function DisplayUserList(props) {
 
-    const userData = [props.item.userName, props.item._id];
+    const userData = [props.item._id, props.item.userName];
 
 
     function handleSubmit(event){

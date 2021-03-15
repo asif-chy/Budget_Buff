@@ -1,26 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-//const { datesGenerator } = require('dates-generator');
+import { Link } from "react-router-dom";
 import { datesGenerator } from 'dates-generator';
 
 //Disclosure: The component was developed based on the following code. Credit: Ibrahim
 //https://dev.to/aibrahim3546/creating-a-custom-calendar-in-react-from-scratch-1hej
 
-const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-const Container = styled.div`
-    width: 400px;
-    border:1px solid black;
-    margin: 0 auto;
-`
-
-const MonthText = styled.div`
-    font-size: 26px;
-    font-weight: bold;
-    text-align: center;
-`
+const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
 function DisplayCalendar(props) {
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -43,45 +31,45 @@ function DisplayCalendar(props) {
         //console.log(userId);
 
         setUserData({
-            userId:userId
+            userId: userId
         })
-        
-    },[props.itemList.userId])
+
+    }, [props.itemList.userId])
 
     useEffect(() => {
 
         console.log(userData);
 
-        if(userData.userId !== ""){
-        //Assign Current Month/Year to body
-        const body = {
-            month: calendar.month,
-            year: calendar.year
+        if (userData.userId !== "") {
+            //Assign Current Month/Year to body
+            const body = {
+                month: calendar.month,
+                year: calendar.year
+            }
+
+            //Pass body inside dateGenerator to grab all dates for the month
+            const { dates, nextMonth, nextYear, previousMonth, previousYear } = datesGenerator(body);
+            //console.log(dates);
+
+            const dateList = setDateList(dates);
+            //console.log(dateList);
+
+            const userId = props.itemList.userId;
+            //console.log(userId);
+
+            fetchTotalList(dates, dateList, userId);
+
+            //Pass functions nextMonth, nextYear, previousMonth, previousYear
+            //fetched from dateGenerator inside calendar
+            setCalendar({
+                ...calendar,
+                nextMonth,
+                nextYear,
+                previousMonth,
+                previousYear
+            });
         }
-
-        //Pass body inside dateGenerator to grab all dates for the month
-        const { dates, nextMonth, nextYear, previousMonth, previousYear } = datesGenerator(body);
-        //console.log(dates);
-
-        const dateList = setDateList(dates);
-        //console.log(dateList);
-        //console.log(props);
-        const userId = props.itemList.userId;
-        //console.log(userId);
-
-        fetchTotalList(dates, dateList, userId);
-
-        //Pass functions nextMonth, nextYear, previousMonth, previousYear
-        //fetched from dateGenerator inside calendar
-        setCalendar({
-            ...calendar,
-            nextMonth,
-            nextYear,
-            previousMonth,
-            previousYear
-        });
-    }
-    }, [calendar.month,userData])
+    }, [calendar.month, userData])
 
 
 
@@ -117,13 +105,13 @@ function DisplayCalendar(props) {
         var dateString;
         var dateIndex = 0;
 
-        while(i < dateList.length){
+        while (i < dateList.length) {
 
-            if(j < totalList.length && dateList[i] === (totalList[j].listDate)){
+            if (j < totalList.length && dateList[i] === (totalList[j].listDate)) {
                 totalHashMap.set(dateList[i], totalList[j].listTotal);
                 j++;
                 i++;
-            }else{
+            } else {
                 totalHashMap.set(dateList[i], '0');
                 i++;
             }
@@ -133,8 +121,8 @@ function DisplayCalendar(props) {
             week.map((each) => {
                 dateString = each.year + '-' + each.month + '-' + each.date;
                 totalValue = parseInt(totalHashMap.get(dateString));
-                Object.assign(each, {total: totalValue});
-                Object.assign(each, {dateIndex: dateIndex});
+                Object.assign(each, { total: totalValue });
+                Object.assign(each, { dateIndex: dateIndex });
                 dateIndex++;
             })
         })
@@ -209,19 +197,19 @@ function DisplayCalendar(props) {
     }
 
     return (
-        <div style={{ width: '100%', paddingTop: 50 }}>
-            <Container>
-                <div style={{ padding: 10 }}>
-                    <div onClick={onClickPrevious} style={{ float: 'left', width: '50%' }}>
+        <div className="budgetCalendarBox">
+            <div className="budgetCalendarContainer">
+                <div className="budgetCalendarPrevNext">
+                    <div onClick={onClickPrevious} id="budgetCalendarPrev">
                         Prev
                     </div>
-                    <div onClick={onClickNext} style={{ float: 'left', width: '50%', textAlign: 'right' }}>
+                    <div onClick={onClickNext} id="budgetCalendarNext">
                         Next
                     </div>
                 </div>
-                <MonthText>
+                <div className="budgetCalendarMonth">
                     {months[calendar.month]}
-                </MonthText>
+                </div>
                 <div>
 
                     <div>
@@ -229,7 +217,7 @@ function DisplayCalendar(props) {
                             <tbody>
                                 <tr>
                                     {days.map((day) => (
-                                        <td key={day} style={{ padding: '5px 0', border: 'solid blue' }}>
+                                        <td key={day} className="budgetCalendarTableRowWeek">
                                             <div style={{ textAlign: 'center', padding: '5px 0' }}>
                                                 {day}
                                             </div>
@@ -240,9 +228,15 @@ function DisplayCalendar(props) {
                                 {dateData.length > 0 && dateData.map((week, index) => (
                                     <tr key={index}>
                                         {week.map((each, subIndex) => (
-                                            <td key={subIndex} style={{ padding: '5px 0', border: 'solid red' }}>
+                                            <td key={subIndex} className="budgetCalendarTableRowDay">
                                                 <div onClick={() => onSelectDate(each)} style={{ textAlign: 'center', padding: '5px 0' }}>
-                                                    {each.date}
+                                                    <Link id="displayDayLink"
+                                                        to={{
+                                                            pathname: "/budget",
+                                                            each,
+                                                            userData:[userData.userId]
+                                                        }}
+                                                    >{each.date}</Link>
                                                 </div>
                                                 <div style={{ textAlign: 'center', padding: '5px 0' }}>
                                                     T:{each.total}
@@ -258,7 +252,7 @@ function DisplayCalendar(props) {
                 <div style={{ padding: 10 }}>
                     Selected Date: {selectedDate.toDateString()}
                 </div>
-            </Container>
+            </div>
         </div>
     );
 }
