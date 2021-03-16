@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CreateBudgetGraphLine from './createBudgetGraphLine';
 import CreateGraphAmountText from './createGraphAmountText';
+import CreateGraphDateText from './createGraphDateText';
 import CreateBar from './createBar';
 import '../../css/graph.css';
 import { datesGenerator } from 'dates-generator';
@@ -142,6 +143,7 @@ function DisplayBudgetGraph(props) {
                             />
                         ))
                     ))}
+                    <CreateGraphDateText/>
                 </div>
             </div>
         </div>

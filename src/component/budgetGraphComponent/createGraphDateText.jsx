@@ -6,7 +6,8 @@ function CreateGraphDateText(props) {
     //console.log(props);
 
     return (
-        <div className = "line">
+        <div>
+           <p>Hello</p>
         </div>
     )
 }
