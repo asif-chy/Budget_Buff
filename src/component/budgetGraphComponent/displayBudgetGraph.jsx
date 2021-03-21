@@ -124,27 +124,36 @@ function DisplayBudgetGraph(props) {
         <div className="budgetGraphBox">
             <div className="graph">
 
-                <CreateGraphAmountText 
+                <CreateGraphAmountText
                     lineDataArray={lineData.lineDataArray} />
 
-                <div class="barContainer">
-                    {lineData.lineArray.map((line, index) => (
-                        <CreateBudgetGraphLine key={index}
-                            bottomValue={line}
-                        />
-                    ))}
-                    {props.dateList.map((week) => (
-                        week.map((each, index) => (
-                            <CreateBar key={index}
-                                barWidth={barData.barWidth}
-                                barMaxHeight={barData.barMaxHeight}
-                                total={each.total}
-                                dateIndex={each.dateIndex}
+                <div className="barContainer">
+                    <div class="barDisplay">
+                        {lineData.lineArray.map((line, index) => (
+                            <CreateBudgetGraphLine key={index}
+                                bottomValue={line}
                             />
-                        ))
-                    ))}
-                    <CreateGraphDateText/>
+                        ))}
+                        {props.dateList.map((week) => (
+                            week.map((each, index) => (
+                                <CreateBar key={index}
+                                    barWidth={barData.barWidth}
+                                    barMaxHeight={barData.barMaxHeight}
+                                    total={each.total}
+                                    dateIndex={each.dateIndex}
+                                />
+                            ))
+                        ))}
+                    </div>
+
+                    <CreateGraphDateText
+                        dateList={props.dateList}
+                        barWidth={barData.barWidth}
+                    />
+
                 </div>
+
+
             </div>
         </div>
     )

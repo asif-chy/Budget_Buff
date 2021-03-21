@@ -6,9 +6,9 @@ function CreateGraphAmountText(props) {
     console.log(props);
 
     return (
-        <div className = "graphAmountText" >
+        <div className = "graphAmountTextDisplay" >
             {props.lineDataArray.map((line,index) =>(
-                <div className="text" style ={{bottom:`${(8)+(10*index)}%`}}>{line}</div>
+                <div className="AmountText" style ={{bottom:`${(8)+(10*index)}%`}}>{line}</div>
             ))}
         </div>
     )
