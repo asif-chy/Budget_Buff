@@ -169,7 +169,7 @@ function BudgetPage(props) {
                 <div className="budgetListContainer">
                     <h1 id="budgetListTitle">BUDGET LIST</h1>
                     <div className="budgetListHeaderOne">
-                        <h3 id="budgetListDate">DATE</h3>
+                        <h3 id="budgetListDate">DATE: {itemList.listDate}</h3>
                         <Link id="budgetListHomeLink" to="/">HOME</Link>
                     </div>
                     <div className="budgetListHeaderTwo">
@@ -178,6 +178,7 @@ function BudgetPage(props) {
                     </div>
                     <form onSubmit={handleBudgetSubmit} className="budgetListForm">
                         <CreateItem
+                            list ={itemList.list}
                             onAdd={updateItemList}
                         />
                         <ol className="budgetOrderedList">

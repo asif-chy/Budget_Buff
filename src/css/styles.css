@@ -40,6 +40,7 @@
     position: absolute;
     left: 33%;
     text-align: center;
+    text-transform: uppercase;
     font-family: 'Rubik', sans-serif;
     font-size: large;
     width: 25%;
@@ -194,6 +195,7 @@
     height: 8%;
     padding-top: 2%;
     margin: 0 auto;
+    margin-bottom: 2%;
 }
 
 #createItemInput{
@@ -203,10 +205,11 @@
     bottom: 0;
     text-align: center;
     font-family: 'Rubik', sans-serif;
-    font-size: medium;
+    font-size: 0.9rem;
+    text-transform: uppercase;
     width: 25%;
     border-radius: 0 20px 20px 0;
-    border: 5px solid #2a9d8f ;
+    border: 4px solid #2a9d8f ;
     outline: none;
 }
 
@@ -221,10 +224,11 @@
     bottom: 0;
     text-align: center;
     font-family: 'Rubik', sans-serif;
-    font-size: medium;
+    font-size: 0.9rem;
+    text-transform: uppercase;
     width: 25%;
     border-radius: 0 20px 20px 0;
-    border: 5px solid #2a9d8f ;
+    border: 4px solid #2a9d8f ;
     outline: none;
 }
 
@@ -246,7 +250,7 @@
     position: relative;
     width: 90%;
     height: 80%;
-    padding: 1% 0 0 0;
+    padding: 0;
     margin: 0 auto;
     overflow-y: scroll;
     /* border: 2px solid rgb(83, 223, 169); */
@@ -260,19 +264,28 @@
     height: 6%;
     margin: 0 auto;
     padding: 0;
-    padding-top: 2.5%;
+    margin-bottom: 2.5%;
     border-bottom: solid #2a9d8f ;
 }
 
 #budgetListDisplayItem{
     position: absolute;
     margin: 0;
+    padding-left: 1%;
     left: 5%;
+    font-size: 1rem;
     bottom: 0;
 }
 
+@media screen and (max-width: 512px) {
+    #budgetListDisplayItem {
+       padding-left: 3%;
+    }
+ }
+
 #budgetListDisplayPrice{
     position: absolute;
+    font-size: 1rem;
     margin: 0;
     left: 47%;
     bottom: 0;
@@ -302,7 +315,8 @@
     position: absolute;
     margin: 0 auto;
     padding: 0;
-    left:0
+    left:0;
+    top: 30%;
 }
 
 #budgetListSaveList{

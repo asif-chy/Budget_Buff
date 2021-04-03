@@ -12,10 +12,14 @@ function CreateUser(props) {
   function addUser(event) {
     const { name, value } = event.target;
 
+    let nameUpperCase = value.toUpperCase();
+
+    console.log(nameUpperCase);
+
     setUser(previouseValue => {
       return {
         ...previouseValue,
-        [name]: value,
+        [name]: nameUpperCase,
       };
     })
   }
