@@ -7,7 +7,6 @@ to calculate where it should be placed */
     height: 100%;
     width: 100%;
     padding: 0;
-    border: 2px solid royalblue;
 }
 
 
@@ -15,7 +14,7 @@ to calculate where it should be placed */
     position:relative;
     display:flex;
     /* margin: 0 auto; */
-    margin: 2.5%;
+    margin: 0 2.5% 2.5% 2.5%;
     max-width: 100%;
     /* padding: 2.5%; */
     height: 25rem;

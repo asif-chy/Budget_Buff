@@ -19,16 +19,25 @@ function BudgetPage(props) {
     const [dateData, setDateData] = React.useState([]);
 
     console.log(props);
+   
+    React.useEffect(() => {
+        if (props.location.userData === undefined) {
+            console.log("Calling Replace");
+            props.history.replace('/');
+        } else {
+            console.log("Setting Id");
+            var id = props.location.userData[0];
+        }
+    },)
 
-    console.log("im here");
     React.useEffect(() => {
         
         const fetchItemList = async () => {
             try {
 
-                console.log(props.location.userData[0]);
-                console.log(props.location.each);
-                console.log("im here");
+                //console.log(props.location.userData[0]);
+                //console.log(props.location.each);
+
                 if (props.location.userData === undefined) {
                     console.log("Calling Replace");
                     props.history.replace('/');
@@ -36,6 +45,7 @@ function BudgetPage(props) {
                     console.log("Setting Id");
                     var id = props.location.userData[0];
                 }
+                console.log(id);
 
                 var currentDate = null;
                 if(props.location.each === undefined){
@@ -48,9 +58,8 @@ function BudgetPage(props) {
                     console.log("Setting Date");
                     currentDate = props.location.each.year + '-' + props.location.each.month + '-' + props.location.each.date;
                 }
-
                 console.log(currentDate);
-                console.log(id);
+                
 
                 setItemList(previousValue => {
                     return {
@@ -65,6 +74,8 @@ function BudgetPage(props) {
                         listDate: currentDate
                     }
                 });
+                console.log(res);
+                console.log(res.data.itemList);
 
                 if (null !== res.data.itemList && !res.data.error) {
 
@@ -72,7 +83,7 @@ function BudgetPage(props) {
                     var saved = fetchedItemList.isSaved;
                     var budgetList = fetchedItemList.list;
 
-                    //console.log(fetchedItemList);
+                    console.log("LIST");
                     console.log(budgetList);
 
                     if (saved !== undefined && budgetList !== undefined) {
@@ -85,6 +96,14 @@ function BudgetPage(props) {
                         })
                     }
                     //console.log(itemList)
+                }else if(null === res.data.itemList && !res.data.error){
+                    console.log("NULL");
+                    setItemList(previousValue => {
+                        return {
+                            ...previousValue,
+                            list: []
+                        }
+                    })
                 }
             } catch (e) {
                 console.log(e);

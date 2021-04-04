@@ -70,7 +70,21 @@ function DisplayCalendar(props) {
         }
     }, [calendar.month, userData])
 
+    const filterDates = (dates) => {
 
+        // let newDates = dates.map((week) => {
+        //     week.filter((each) => {
+        //         console.log(each.month);
+        //         return each.month === 3;//calendar.month;
+        //     })
+        // });
+
+        let newDates = dates.map(week => week.filter(each => each.month === 3));
+
+        //console.log(newDates); 
+
+        return newDates;
+    }
 
     const fetchTotalList = async (dates, dateList, userId) => {
         try {
@@ -225,10 +239,10 @@ function DisplayCalendar(props) {
                                 </tr>
 
                                 {dateData.length > 0 && dateData.map((week, index) => (
-                                    <tr key={index}>
+                                    <tr key={index} className="tableRowDay">
                                         {week.map((each, subIndex) => (
                                             <td key={subIndex} className="budgetCalendarTableRowDay">
-                                                <div onClick={() => onSelectDate(each)} style={{ textAlign: 'center', padding: '5px 0' }}>
+                                                <div onClick={() => onSelectDate(each)} id="calendarDateSet">
                                                     <Link id="displayDayLink"
                                                         to={{
                                                             pathname: "/budget",
@@ -237,7 +251,7 @@ function DisplayCalendar(props) {
                                                         }}
                                                     >{each.date}</Link>
                                                 </div>
-                                                <div style={{ textAlign: 'center', padding: '5px 0' }}>
+                                                <div id="calendarTotal">
                                                     T:{each.total}
                                                 </div>
                                             </td>
