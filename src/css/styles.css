@@ -426,4 +426,18 @@
     font-size: 0.9rem;
 }
 
+/* SWAL */
+
+.swal-modal {
+    background-color: rgb(83, 223, 169);
+    border: 3px solid white;
+  }
+
+  .swal-text {
+    font-family: 'Rubik', sans-serif;
+    font-size: 1rem;
+    text-align: center;
+    color: black
+  }
+
 

@@ -6,7 +6,7 @@ function CreateBudgetGraphLine(props) {
     //console.log(props);
 
     return (
-        <div className = "line" style={{bottom: `${(props.bottomValue)*10}%`}}>
+        <div className="line" style={{ bottom: `${(props.bottomValue) * 10}%` }}>
         </div>
     )
 }

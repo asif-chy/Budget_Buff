@@ -247,7 +247,7 @@ function DisplayCalendar(props) {
                                                         to={{
                                                             pathname: "/budget",
                                                             each,
-                                                            userData:[userData.userId]
+                                                            userData: [userData.userId]
                                                         }}
                                                     >{each.date}</Link>
                                                 </div>

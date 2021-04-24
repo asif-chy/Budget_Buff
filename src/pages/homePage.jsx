@@ -11,7 +11,7 @@ function HomePage() {
     React.useEffect(() => {
         const fetchUserList = async () => {
             try {
-                
+
                 const res = await axios.get('http://localhost:9000/getUserListData');
 
                 if (!res.data.error || res.data.userList.length !== 0) {
@@ -48,17 +48,18 @@ function HomePage() {
 
     return (
         <div className="homePage">
-        <h1 id="homePageTitle">BUDGET BUFF</h1>
-        <div className = "userContainer">
-            <CreateUser
-                onAdd={updateUserList}
-            />
-            {userList.map((user, index) =>
-            (<DisplayUserList key={user._id}
-                item={user}
-                delete={deleteUser}
-            />))}
-        </div>
+            <h1 id="homePageTitle">BUDGET BUFF</h1>
+            <div className="userContainer">
+                <CreateUser
+                    listOfUser={userList}
+                    onAdd={updateUserList}
+                />
+                {userList.map((user, index) =>
+                (<DisplayUserList key={user._id}
+                    item={user}
+                    delete={deleteUser}
+                />))}
+            </div>
         </div>
     )
 }

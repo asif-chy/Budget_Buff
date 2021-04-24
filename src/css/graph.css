@@ -132,5 +132,23 @@ Note: z-index only works on positioned elements (position: absolute, position: r
     }
  }
 
+#dollarLabel{
+    position: absolute;
+    top:41%;
+    left: 20%;
+}
+
+@media screen and (max-width: 800px) {
+    #dollarLabel {
+        font-size: .7rem;
+    }
+ }
+ 
+@media screen and (max-width: 600px) {
+    #dollarLabel {
+        font-size: .4rem;
+    }
+ }
+
 
 

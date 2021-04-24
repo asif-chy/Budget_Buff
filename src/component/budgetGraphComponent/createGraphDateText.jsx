@@ -18,11 +18,14 @@ function CreateGraphDateText(props) {
 
     return (
         <div className="graphDateTextDisplay">
-           {props.dateList.map((week) => (
-               week.map((each,index) => (
-                   <div className="DateText" style={{width: `${(props.barWidth)}%`,left:`${((each.dateIndex)*(props.barWidth))}%`}}>{each.date}</div>
-               ))
-           ))}
+            {props.dateList.map((week) => (
+                week.map((each, index) => (
+                    <div className="DateText" style={{ width: `${(props.barWidth)}%`, left: `${((each.dateIndex) * (props.barWidth))}%` }}>{each.date}</div>
+                ))
+            ))}
+            <div>
+                <h5>DAY</h5>
+            </div>
         </div>
     )
 }

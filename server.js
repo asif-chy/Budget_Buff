@@ -6,7 +6,7 @@ const cors = require("cors");
 const _ = require('lodash');
 const PORT = process.env.PORT || 9000;
 
-mongoose.connect("mongodb+srv://***@cluster0.9hlzt.mongodb.net/budgetDB?retryWrites=true&w=majority", { useNewUrlParser: true });
+mongoose.connect("mongodb+srv://Asiful_01:Mongo1234@cluster0.9hlzt.mongodb.net/budgetDB?retryWrites=true&w=majority", { useNewUrlParser: true });
 
 const app = express();
 

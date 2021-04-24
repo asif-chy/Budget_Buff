@@ -19,7 +19,7 @@ function BudgetPage(props) {
     const [dateData, setDateData] = React.useState([]);
 
     console.log(props);
-   
+
     React.useEffect(() => {
         if (props.location.userData === undefined) {
             console.log("Calling Replace");
@@ -28,10 +28,10 @@ function BudgetPage(props) {
             console.log("Setting Id");
             var id = props.location.userData[0];
         }
-    },)
+    })
 
     React.useEffect(() => {
-        
+
         const fetchItemList = async () => {
             try {
 
@@ -48,18 +48,18 @@ function BudgetPage(props) {
                 console.log(id);
 
                 var currentDate = null;
-                if(props.location.each === undefined){
+                if (props.location.each === undefined) {
                     const date = new Date();
                     var year = date.getFullYear();
                     var month = date.getMonth();
                     var day = date.getDate();
                     currentDate = year + '-' + month + '-' + day;
-                } else{
+                } else {
                     console.log("Setting Date");
                     currentDate = props.location.each.year + '-' + props.location.each.month + '-' + props.location.each.date;
                 }
                 console.log(currentDate);
-                
+
 
                 setItemList(previousValue => {
                     return {
@@ -96,7 +96,7 @@ function BudgetPage(props) {
                         })
                     }
                     //console.log(itemList)
-                }else if(null === res.data.itemList && !res.data.error){
+                } else if (null === res.data.itemList && !res.data.error) {
                     console.log("NULL");
                     setItemList(previousValue => {
                         return {
@@ -197,7 +197,7 @@ function BudgetPage(props) {
                     </div>
                     <form onSubmit={handleBudgetSubmit} className="budgetListForm">
                         <CreateItem
-                            list ={itemList.list}
+                            list={itemList.list}
                             onAdd={updateItemList}
                         />
                         <ol className="budgetOrderedList">

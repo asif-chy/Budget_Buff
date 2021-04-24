@@ -6,7 +6,7 @@ function DisplayItemList(props) {
 
     //console.log(props);
 
-    function handleItemDelete(event){
+    function handleItemDelete(event) {
         event.preventDefault();
         const id = props.item.itemId;
         props.deleteItem(id);
